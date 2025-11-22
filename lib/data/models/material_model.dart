@@ -25,7 +25,7 @@ class MaterialModel extends MaterialItem {
       description: json['description'],
       category: MaterialCategory.values.firstWhere(
         (e) => e.toString() == json['category'],
-        orElse: () => MaterialCategory.otros,
+        orElse: () => MaterialCategory.other,
       ),
       quantity: (json['quantity'] as num).toDouble(),
       unit: json['unit'],

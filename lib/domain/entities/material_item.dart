@@ -1,12 +1,23 @@
 import 'package:equatable/equatable.dart';
 
 enum MaterialCategory {
-  concretoSimple,
-  concretoArmado,
-  mamposteriaRecubierta,
-  mezclaAsfaltica,
-  prefabricadosMixtos,
-  otros,
+  electrical,
+  hydraulic,
+  signalCommunication,
+  wood,
+  glass,
+  metal,
+  concreteMasonry,
+  other,
+}
+
+enum MaterialCondition {
+  newUnused,
+  likeNew,
+  usedGood,
+  usedAcceptable,
+  forParts,
+  industrialSurplus,
 }
 
 enum MaterialStatus {
@@ -20,6 +31,8 @@ class MaterialItem extends Equatable {
   final String name;
   final String description;
   final MaterialCategory category;
+  final String? subCategory;
+  final MaterialCondition condition;
   final double quantity;
   final String unit;
   final double price;
@@ -36,6 +49,8 @@ class MaterialItem extends Equatable {
     required this.name,
     required this.description,
     required this.category,
+    this.subCategory,
+    this.condition = MaterialCondition.newUnused,
     required this.quantity,
     required this.unit,
     required this.price,
@@ -53,6 +68,8 @@ class MaterialItem extends Equatable {
     String? name,
     String? description,
     MaterialCategory? category,
+    String? subCategory,
+    MaterialCondition? condition,
     double? quantity,
     String? unit,
     double? price,
@@ -69,6 +86,8 @@ class MaterialItem extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       category: category ?? this.category,
+      subCategory: subCategory ?? this.subCategory,
+      condition: condition ?? this.condition,
       quantity: quantity ?? this.quantity,
       unit: unit ?? this.unit,
       price: price ?? this.price,
@@ -88,6 +107,8 @@ class MaterialItem extends Equatable {
         name,
         description,
         category,
+        subCategory,
+        condition,
         quantity,
         unit,
         price,
