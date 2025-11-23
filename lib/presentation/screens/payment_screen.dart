@@ -8,8 +8,6 @@ import '../../domain/repositories/impact_repository.dart';
 import '../providers/auth_provider.dart';
 import '../providers/payment_provider.dart';
 
-
-
 class PaymentScreen extends StatefulWidget {
   final MaterialItem material;
   const PaymentScreen({super.key, required this.material});
@@ -35,7 +33,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       timestamp: DateTime.now(),
     );
 
-    final success = await context.read<PaymentProvider>().processPayment(transaction);
+    final success =
+        await context.read<PaymentProvider>().processPayment(transaction);
 
     if (success && mounted) {
       setState(() {
@@ -47,14 +46,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PaymentProvider>();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Proceso de pago'),
         backgroundColor: Colors.green,
       ),
       body: FutureBuilder(
-        future: context.read<ImpactRepository>().calculateImpact(widget.material.quantity),
+        future: context
+            .read<ImpactRepository>()
+            .calculateImpact(widget.material.quantity),
         builder: (context, snapshot) {
           final impact = snapshot.data?.fold((l) => null, (r) => r);
 
@@ -65,17 +66,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check_circle, color: Colors.green[700], size: 72),
+                        Icon(Icons.check_circle,
+                            color: Colors.green[700], size: 72),
                         const SizedBox(height: 16),
-                        const Text('¡Transacción completada!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        const Text('¡Transacción completada!',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 8),
-                        const Text('Gracias por contribuir al reciclaje.', textAlign: TextAlign.center),
+                        const Text('Gracias por contribuir al reciclaje.',
+                            textAlign: TextAlign.center),
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.popUntil(context, ModalRoute.withName('/home'));
+                            Navigator.popUntil(
+                                context, ModalRoute.withName('/home'));
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
                           child: const Text('Volver al inicio'),
                         ),
                       ],
@@ -90,40 +97,50 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Resumen del pedido', style: Theme.of(context).textTheme.titleLarge),
+                              Text('Resumen del pedido',
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
                               const Divider(),
                               Text('Material: ${widget.material.name}'),
-                              Text('Cantidad: ${widget.material.quantity} ${widget.material.unit}'),
+                              Text(
+                                  'Cantidad: ${widget.material.quantity} ${widget.material.unit}'),
                               const SizedBox(height: 8),
                               Text(
                                 'Total a pagar: \$${widget.material.price.toStringAsFixed(2)} MXN',
-                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
                               ),
                             ],
                           ),
                         ),
                       ),
                       const SizedBox(height: 24),
-                      const Text('Beneficios ambientales estimados:', style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Text('Beneficios ambientales estimados:',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8),
                       if (impact != null) ...[
-                        _buildImpactRow(Icons.cloud, 'CO₂ evitado', '${impact.co2Saved.toStringAsFixed(1)} kg'),
-                        _buildImpactRow(Icons.bolt, 'Energía ahorrada', '${impact.energySaved.toStringAsFixed(1)} kWh'),
-                        _buildImpactRow(Icons.water_drop, 'Agua ahorrada', '${impact.waterSaved.toStringAsFixed(1)} L'),
+                        _buildImpactRow(Icons.cloud, 'CO₂ evitado',
+                            '${impact.co2Saved.toStringAsFixed(1)} kg'),
+                        _buildImpactRow(Icons.bolt, 'Energía ahorrada',
+                            '${impact.energySaved.toStringAsFixed(1)} kWh'),
+                        _buildImpactRow(Icons.water_drop, 'Agua ahorrada',
+                            '${impact.waterSaved.toStringAsFixed(1)} L'),
                       ] else
                         const Text('Calculando...'),
-                      
                       if (provider.errorMessage != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
-                          child: Text(provider.errorMessage!, style: const TextStyle(color: Colors.red)),
+                          child: Text(provider.errorMessage!,
+                              style: const TextStyle(color: Colors.red)),
                         ),
-                        
                       const Spacer(),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: provider.isProcessing ? null : _confirmPayment,
+                          onPressed:
+                              provider.isProcessing ? null : _confirmPayment,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -132,7 +149,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ? const SizedBox(
                                   height: 20,
                                   width: 20,
-                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white, strokeWidth: 2),
                                 )
                               : const Text('Confirmar Transacción'),
                         ),

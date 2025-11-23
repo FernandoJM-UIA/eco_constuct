@@ -3,8 +3,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../domain/entities/material_item.dart';
 
-
-
 class MapScreen extends StatefulWidget {
   final MaterialItem item;
   const MapScreen({super.key, required this.item});
@@ -20,7 +18,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final position = LatLng(widget.item.latitude, widget.item.longitude);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ubicación'),
@@ -36,7 +34,8 @@ class _MapScreenState extends State<MapScreen> {
                   const Text('No se pudo cargar el mapa.'),
                   const Text('Verifique su clave de API de Google Maps.'),
                   const SizedBox(height: 16),
-                  Text('Lat: ${widget.item.latitude}, Lon: ${widget.item.longitude}'),
+                  Text(
+                      'Lat: ${widget.item.latitude}, Lon: ${widget.item.longitude}'),
                 ],
               ),
             )
@@ -46,7 +45,9 @@ class _MapScreenState extends State<MapScreen> {
                 Marker(
                   markerId: MarkerId(widget.item.id),
                   position: position,
-                  infoWindow: InfoWindow(title: widget.item.name, snippet: widget.item.locationDescription),
+                  infoWindow: InfoWindow(
+                      title: widget.item.name,
+                      snippet: widget.item.locationDescription),
                 ),
               },
               onMapCreated: (controller) {

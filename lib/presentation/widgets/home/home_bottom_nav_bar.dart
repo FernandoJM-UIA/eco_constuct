@@ -3,11 +3,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
+  final int activeIndex;
+  final VoidCallback onHomePressed;
+  final VoidCallback onFavoritesPressed;
+  final VoidCallback onChatPressed;
   final VoidCallback onAddPressed;
   final VoidCallback onImpactPressed;
 
   const HomeBottomNavBar({
     super.key,
+    this.activeIndex = 0,
+    required this.onHomePressed,
+    required this.onFavoritesPressed,
+    required this.onChatPressed,
     required this.onAddPressed,
     required this.onImpactPressed,
   });
@@ -16,11 +24,18 @@ class HomeBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color glassWhite = Colors.white.withOpacity(0.85);
     final Color primaryGold = const Color(0xFFD4AF37);
+    
+    // Get the bottom safe area padding (e.g., for system nav bars)
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+        margin: EdgeInsets.only(
+          left: 24, 
+          right: 24, 
+          bottom: 24 + bottomPadding,
+        ),
         height: 70,
         decoration: BoxDecoration(
           color: glassWhite,
@@ -40,8 +55,10 @@ class HomeBottomNavBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildNavItem(Icons.home_outlined, true, () {}),
-                _buildNavItem(Icons.favorite_border, false, () {}),
+                _buildNavItem(
+                    Icons.home_outlined, activeIndex == 0, onHomePressed),
+                _buildNavItem(Icons.favorite_border, activeIndex == 1,
+                    onFavoritesPressed),
                 // Center Button (Signature Action)
                 GestureDetector(
                   onTap: onAddPressed,
@@ -63,11 +80,14 @@ class HomeBottomNavBar extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Icon(Icons.star, color: Colors.white, size: 24),
+                    child: const Icon(Icons.star,
+                        color: Colors.white, size: 24),
                   ),
                 ),
-                _buildNavItem(Icons.chat_bubble_outline, false, () {}),
-                _buildNavItem(Icons.eco_outlined, false, onImpactPressed),
+                _buildNavItem(
+                    Icons.chat_bubble_outline, activeIndex == 2, onChatPressed),
+                _buildNavItem(
+                    Icons.eco_outlined, activeIndex == 3, onImpactPressed),
               ],
             ),
           ),

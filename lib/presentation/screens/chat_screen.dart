@@ -6,13 +6,12 @@ import '../../domain/entities/message.dart';
 import '../providers/auth_provider.dart';
 import '../providers/messaging_provider.dart';
 
-
-
 class ChatScreen extends StatefulWidget {
   final String otherUserId;
   final String materialId;
 
-  const ChatScreen({super.key, required this.otherUserId, required this.materialId});
+  const ChatScreen(
+      {super.key, required this.otherUserId, required this.materialId});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -26,7 +25,9 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MessagingProvider>().loadConversation(widget.otherUserId, widget.materialId);
+      context
+          .read<MessagingProvider>()
+          .loadConversation(widget.otherUserId, widget.materialId);
     });
   }
 
@@ -97,9 +98,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     final msg = messages[index];
                     final isMe = msg.fromUserId == currentUser?.id;
                     return Align(
-                      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                      alignment:
+                          isMe ? Alignment.centerRight : Alignment.centerLeft,
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: isMe ? Colors.green[100] : Colors.grey[200],
@@ -112,7 +115,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             const SizedBox(height: 4),
                             Text(
                               '${msg.timestamp.hour}:${msg.timestamp.minute.toString().padLeft(2, '0')}',
-                              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                              style: TextStyle(
+                                  fontSize: 10, color: Colors.grey[600]),
                             ),
                           ],
                         ),
@@ -135,7 +139,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24)),
                       ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     ),
                     onSubmitted: (_) => _sendMessage(),
                   ),

@@ -14,6 +14,9 @@ import 'presentation/providers/messaging_provider.dart';
 import 'presentation/providers/payment_provider.dart';
 import 'presentation/routes/route_arguments.dart';
 import 'presentation/screens/chat_screen.dart';
+import 'presentation/screens/chat_tab_screen.dart';
+import 'presentation/screens/favorites_screen.dart';
+import 'presentation/screens/ai_chat_screen.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/impact_screen.dart';
 import 'presentation/screens/login_screen.dart';
@@ -76,6 +79,9 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginScreen(),
         '/register': (_) => const RegisterScreen(),
         '/home': (_) => const HomeScreen(),
+        '/favorites': (_) => const FavoritesScreen(),
+        '/chatTab': (_) => const ChatTabScreen(),
+        '/aiChat': (_) => const AiChatScreen(),
         '/addMaterial': (_) => const MaterialFormScreen(),
         '/impact': (_) => const ImpactScreen(),
       },

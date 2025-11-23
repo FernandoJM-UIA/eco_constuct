@@ -60,7 +60,8 @@ class _MaterialDetailScreenState extends State<MaterialDetailScreen> {
                   transform: Matrix4.translationValues(0, -24, 0),
                   decoration: const BoxDecoration(
                     color: Color(0xFFFAFAFA),
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(24)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
@@ -76,7 +77,8 @@ class _MaterialDetailScreenState extends State<MaterialDetailScreen> {
                         const SizedBox(height: 24),
 
                         // Description
-                        ExpandableDescription(description: widget.item.description),
+                        ExpandableDescription(
+                            description: widget.item.description),
                         const SizedBox(height: 32),
 
                         // Location
@@ -99,7 +101,8 @@ class _MaterialDetailScreenState extends State<MaterialDetailScreen> {
                             maxQuantity: widget.item.quantity,
                             unit: widget.item.unit,
                             pricePerUnit: widget.item.price,
-                            onChanged: (value) => setState(() => _quantity = value),
+                            onChanged: (value) =>
+                                setState(() => _quantity = value),
                           ),
                           const SizedBox(height: 32),
                         ],
@@ -113,8 +116,11 @@ class _MaterialDetailScreenState extends State<MaterialDetailScreen> {
                         const SizedBox(height: 32),
 
                         // Similar Products (Mock Data)
-                        SimilarProducts(items: [widget.item, widget.item]), // Mocking with same item
-                        
+                        SimilarProducts(items: [
+                          widget.item,
+                          widget.item
+                        ]), // Mocking with same item
+
                         // Bottom Padding for Sticky Bar
                         const SizedBox(height: 100),
                       ],

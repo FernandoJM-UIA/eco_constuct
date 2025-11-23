@@ -22,21 +22,23 @@ class MaterialCard extends StatelessWidget {
           arguments: MaterialDetailArgs(item: item),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             // Image Section
             Expanded(
               flex: 4, // Increased image flex to give more space to image and less to text
@@ -101,41 +103,36 @@ class MaterialCard extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 8, 10, 8), // Reduced padding
+                padding: const EdgeInsets.fromLTRB(10, 6, 10, 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.playfairDisplay(
-                            fontSize: 15, // Slightly reduced font size
-                            fontWeight: FontWeight.w600,
-                            color: charcoalBlack,
-                          ),
-                        ),
-                        const SizedBox(height: 2), // Reduced spacing
-                        Text(
-                          item.category.name.toUpperCase(),
-                          style: GoogleFonts.inter(
-                            fontSize: 9, // Slightly reduced font size
-                            color: Colors.grey[500],
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      item.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: charcoalBlack,
+                      ),
                     ),
+                    const SizedBox(height: 2),
+                    Text(
+                      item.category.name.toUpperCase(),
+                      style: GoogleFonts.inter(
+                        fontSize: 9,
+                        color: Colors.grey[500],
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    const Spacer(),
                     Text(
                       item.price == 0
                           ? 'Donation'
                           : '\$${item.price.toStringAsFixed(2)}',
                       style: GoogleFonts.inter(
-                        fontSize: 13, // Slightly reduced font size
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: primaryGold,
                       ),
@@ -146,6 +143,7 @@ class MaterialCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

@@ -30,7 +30,7 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
   final _unitController = TextEditingController(text: 'kg');
   final _priceController = TextEditingController();
   final _locationDescController = TextEditingController();
-  
+
   MaterialCategory? _selectedCategory;
   String? _selectedSubCategory;
   MaterialCondition _selectedCondition = MaterialCondition.newUnused;
@@ -40,28 +40,87 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
   // Mock Subcategories (Ideally this comes from a repository or constant)
   final Map<MaterialCategory, List<String>> _subCategories = {
     MaterialCategory.electrical: [
-      'Connectors', 'Switches', 'Wires & Cables', 'Breakers', 'Electrical Panels', 'Transformers', 'Conduits & Trays', 'Lighting Fixtures', 'Sockets & Outlets', 'Sensors'
+      'Connectors',
+      'Switches',
+      'Wires & Cables',
+      'Breakers',
+      'Electrical Panels',
+      'Transformers',
+      'Conduits & Trays',
+      'Lighting Fixtures',
+      'Sockets & Outlets',
+      'Sensors'
     ],
     MaterialCategory.hydraulic: [
-      'Pipes (PVC, Copper, HDPE, Steel)', 'Valves', 'Pumps', 'Water Tanks', 'Drains & Traps', 'Fittings & Couplings', 'Filters', 'Manholes', 'Irrigation Components'
+      'Pipes (PVC, Copper, HDPE, Steel)',
+      'Valves',
+      'Pumps',
+      'Water Tanks',
+      'Drains & Traps',
+      'Fittings & Couplings',
+      'Filters',
+      'Manholes',
+      'Irrigation Components'
     ],
     MaterialCategory.signalCommunication: [
-      'Traffic Lights', 'Controllers', 'Network Cables', 'Routers & Switches', 'Antennas', 'CCTV Cameras', 'Alarms', 'Sensors'
+      'Traffic Lights',
+      'Controllers',
+      'Network Cables',
+      'Routers & Switches',
+      'Antennas',
+      'CCTV Cameras',
+      'Alarms',
+      'Sensors'
     ],
     MaterialCategory.wood: [
-      'Beams', 'Boards / Planks', 'MDF / Plywood', 'Doors', 'Window Frames', 'Pallets', 'Formwork Panels', 'Wood Flooring'
+      'Beams',
+      'Boards / Planks',
+      'MDF / Plywood',
+      'Doors',
+      'Window Frames',
+      'Pallets',
+      'Formwork Panels',
+      'Wood Flooring'
     ],
     MaterialCategory.glass: [
-      'Tempered', 'Laminated', 'Windows', 'Facades', 'Glass Blocks', 'Mirrors', 'Shower Panels', 'Skylights'
+      'Tempered',
+      'Laminated',
+      'Windows',
+      'Facades',
+      'Glass Blocks',
+      'Mirrors',
+      'Shower Panels',
+      'Skylights'
     ],
     MaterialCategory.metal: [
-      'Steel Beams', 'Aluminum Sheets', 'Rebars', 'Pipes', 'Metal Plates', 'Roofing Sheets', 'Wire Mesh', 'Handrails'
+      'Steel Beams',
+      'Aluminum Sheets',
+      'Rebars',
+      'Pipes',
+      'Metal Plates',
+      'Roofing Sheets',
+      'Wire Mesh',
+      'Handrails'
     ],
     MaterialCategory.concreteMasonry: [
-      'Blocks', 'Bricks', 'Cement', 'Precast Panels', 'Slabs', 'Tiles', 'Mortar', 'Aggregates'
+      'Blocks',
+      'Bricks',
+      'Cement',
+      'Precast Panels',
+      'Slabs',
+      'Tiles',
+      'Mortar',
+      'Aggregates'
     ],
     MaterialCategory.other: [
-      'Insulation', 'Drywall', 'Roof Shingles', 'Composite Panels', 'Plastic Sheets', 'Rubber', 'Reusable Waste', 'Mixed Materials'
+      'Insulation',
+      'Drywall',
+      'Roof Shingles',
+      'Composite Panels',
+      'Plastic Sheets',
+      'Rubber',
+      'Reusable Waste',
+      'Mixed Materials'
     ],
   };
 
@@ -96,8 +155,10 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
       return;
     }
 
-    final quantity = double.tryParse(_quantityController.text.replaceAll(',', '.')) ?? 0;
-    final price = double.tryParse(_priceController.text.replaceAll(',', '.')) ?? 0;
+    final quantity =
+        double.tryParse(_quantityController.text.replaceAll(',', '.')) ?? 0;
+    final price =
+        double.tryParse(_priceController.text.replaceAll(',', '.')) ?? 0;
 
     final item = MaterialItem(
       id: const Uuid().v4(),
@@ -152,13 +213,14 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
               ),
             ),
           ),
-          
+
           SafeArea(
             child: Column(
               children: [
                 // Header
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -216,7 +278,8 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                             color: Colors.grey.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.close, size: 20, color: Colors.grey),
+                          child: const Icon(Icons.close,
+                              size: 20, color: Colors.grey),
                         ),
                       ),
                     ],
@@ -227,7 +290,8 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                 Expanded(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -242,17 +306,22 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   label: 'Title',
                                   placeholder: 'Enter material title',
                                   controller: _titleController,
-                                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                                  validator: (v) => v == null || v.isEmpty
+                                      ? 'Required'
+                                      : null,
                                 ),
                                 const SizedBox(height: 24),
 
                                 // Description
                                 PremiumInputField(
                                   label: 'Description',
-                                  placeholder: 'Describe the material, measurements, history, etc.',
+                                  placeholder:
+                                      'Describe the material, measurements, history, etc.',
                                   controller: _descriptionController,
                                   isMultiline: true,
-                                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                                  validator: (v) => v == null || v.isEmpty
+                                      ? 'Required'
+                                      : null,
                                 ),
                                 const SizedBox(height: 24),
 
@@ -264,14 +333,17 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                     // Convert enum to display text (e.g., concreteMasonry -> Concrete & Masonry)
                                     String text = c.toString().split('.').last;
                                     // Simple formatting for display
-                                    text = text[0].toUpperCase() + text.substring(1);
+                                    text = text[0].toUpperCase() +
+                                        text.substring(1);
                                     // Handle special cases if needed
-                                    return DropdownMenuItem(value: c, child: Text(text));
+                                    return DropdownMenuItem(
+                                        value: c, child: Text(text));
                                   }).toList(),
                                   onChanged: (value) {
                                     setState(() {
                                       _selectedCategory = value;
-                                      _selectedSubCategory = null; // Reset subcategory
+                                      _selectedSubCategory =
+                                          null; // Reset subcategory
                                     });
                                   },
                                 ),
@@ -283,12 +355,15 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   value: _selectedSubCategory,
                                   isEnabled: _selectedCategory != null,
                                   items: _selectedCategory != null
-                                      ? _subCategories[_selectedCategory]!.map((s) {
-                                          return DropdownMenuItem(value: s, child: Text(s));
+                                      ? _subCategories[_selectedCategory]!
+                                          .map((s) {
+                                          return DropdownMenuItem(
+                                              value: s, child: Text(s));
                                         }).toList()
                                       : [],
                                   onChanged: (value) {
-                                    setState(() => _selectedSubCategory = value);
+                                    setState(
+                                        () => _selectedSubCategory = value);
                                   },
                                 ),
                                 const SizedBox(height: 24),
@@ -296,7 +371,8 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                 // Condition
                                 ConditionSelector(
                                   selectedCondition: _selectedCondition,
-                                  onConditionSelected: (c) => setState(() => _selectedCondition = c),
+                                  onConditionSelected: (c) =>
+                                      setState(() => _selectedCondition = c),
                                 ),
                                 const SizedBox(height: 32),
 
@@ -317,49 +393,88 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                                    border: Border.all(
+                                        color: Colors.grey.withOpacity(0.2)),
                                   ),
                                   child: Row(
                                     children: [
                                       Expanded(
+                                        flex: 3,
                                         child: TextFormField(
                                           controller: _quantityController,
-                                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                          keyboardType: const TextInputType
+                                              .numberWithOptions(decimal: true),
                                           decoration: InputDecoration(
                                             labelText: 'Quantity',
                                             border: InputBorder.none,
-                                            labelStyle: GoogleFonts.inter(color: Colors.grey[500]),
+                                            labelStyle: GoogleFonts.inter(
+                                                color: Colors.grey[500]),
                                           ),
-                                          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                                          style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      Container(width: 1, height: 40, color: Colors.grey.withOpacity(0.3)),
-                                      const SizedBox(width: 12), // Reduced from 16
+                                      Container(
+                                          width: 1,
+                                          height: 40,
+                                          color: Colors.grey.withOpacity(0.3)),
+                                      const SizedBox(width: 8),
                                       Expanded(
+                                        flex: 2,
                                         child: DropdownButtonFormField<String>(
-                                          value: _unitController.text.isEmpty ? 'kg' : _unitController.text,
+                                          value: _unitController.text.isEmpty
+                                              ? 'kg'
+                                              : _unitController.text,
                                           decoration: InputDecoration(
                                             labelText: 'Unit',
                                             border: InputBorder.none,
-                                            labelStyle: GoogleFonts.inter(color: Colors.grey[500]),
-                                            contentPadding: EdgeInsets.zero, // Remove content padding
+                                            labelStyle: GoogleFonts.inter(
+                                                color: Colors.grey[500],
+                                                fontSize: 12),
+                                            contentPadding: EdgeInsets.zero,
                                           ),
-                                          style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: const Color(0xFF1A1A1A)),
+                                          style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: const Color(0xFF1A1A1A)),
                                           dropdownColor: Colors.white,
-                                          icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600], size: 18), // Reduced icon size
-                                          isDense: true, // Make dropdown more compact
+                                          icon: Icon(Icons.keyboard_arrow_down,
+                                              color: Colors.grey[600],
+                                              size: 16),
+                                          isDense: true,
+                                          isExpanded: true,
                                           items: const [
-                                            DropdownMenuItem(value: 'kg', child: Text('kg')),
-                                            DropdownMenuItem(value: 'g', child: Text('g')),
-                                            DropdownMenuItem(value: 'tons', child: Text('tons')),
-                                            DropdownMenuItem(value: 'units', child: Text('units')),
-                                            DropdownMenuItem(value: 'boxes', child: Text('boxes')),
-                                            DropdownMenuItem(value: 'liters', child: Text('liters')),
-                                            DropdownMenuItem(value: 'meters', child: Text('meters')),
-                                            DropdownMenuItem(value: 'centimeters', child: Text('centimeters')),
-                                            DropdownMenuItem(value: 'rolls', child: Text('rolls')),
-                                            DropdownMenuItem(value: 'pallets', child: Text('pallets')),
-                                            DropdownMenuItem(value: 'other', child: Text('other')),
+                                            DropdownMenuItem(
+                                                value: 'kg', child: Text('kg')),
+                                            DropdownMenuItem(
+                                                value: 'g', child: Text('g')),
+                                            DropdownMenuItem(
+                                                value: 'tons',
+                                                child: Text('tons')),
+                                            DropdownMenuItem(
+                                                value: 'units',
+                                                child: Text('units')),
+                                            DropdownMenuItem(
+                                                value: 'boxes',
+                                                child: Text('boxes')),
+                                            DropdownMenuItem(
+                                                value: 'liters',
+                                                child: Text('liters')),
+                                            DropdownMenuItem(
+                                                value: 'meters',
+                                                child: Text('meters')),
+                                            DropdownMenuItem(
+                                                value: 'cm',
+                                                child: Text('cm')),
+                                            DropdownMenuItem(
+                                                value: 'rolls',
+                                                child: Text('rolls')),
+                                            DropdownMenuItem(
+                                                value: 'pallets',
+                                                child: Text('pallets')),
+                                            DropdownMenuItem(
+                                                value: 'other',
+                                                child: Text('other')),
                                           ],
                                           onChanged: (value) {
                                             if (value != null) {
@@ -380,17 +495,23 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                                    border: Border.all(
+                                        color: Colors.grey.withOpacity(0.2)),
                                   ),
                                   child: TextFormField(
                                     controller: _priceController,
-                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
                                     decoration: InputDecoration(
                                       labelText: 'Price (0 = Donation)',
                                       border: InputBorder.none,
-                                      labelStyle: GoogleFonts.inter(color: Colors.grey[500]),
+                                      labelStyle: GoogleFonts.inter(
+                                          color: Colors.grey[500]),
                                     ),
-                                    style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: const Color(0xFFD4AF37)),
+                                    style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xFFD4AF37)),
                                   ),
                                 ),
                                 const SizedBox(height: 32),
@@ -401,13 +522,15 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   onTakePhoto: () {
                                     // Implement photo taking logic
                                     setState(() {
-                                      _photos.add('https://via.placeholder.com/150'); // Mock
+                                      _photos.add(
+                                          'https://via.placeholder.com/150'); // Mock
                                     });
                                   },
                                   onUploadGallery: () {
                                     // Implement gallery upload logic
                                     setState(() {
-                                      _photos.add('https://via.placeholder.com/150'); // Mock
+                                      _photos.add(
+                                          'https://via.placeholder.com/150'); // Mock
                                     });
                                   },
                                   onRemovePhoto: (index) {
@@ -423,8 +546,11 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
                                   label: 'Location',
                                   placeholder: 'Enter material location',
                                   controller: _locationDescController,
-                                  suffixIcon: const Icon(Icons.place, color: Colors.grey),
-                                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                                  suffixIcon: const Icon(Icons.place,
+                                      color: Colors.grey),
+                                  validator: (v) => v == null || v.isEmpty
+                                      ? 'Required'
+                                      : null,
                                 ),
                                 const SizedBox(height: 40),
 
@@ -451,4 +577,3 @@ class _MaterialFormScreenState extends State<MaterialFormScreen> {
     );
   }
 }
-

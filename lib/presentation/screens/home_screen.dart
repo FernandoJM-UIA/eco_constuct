@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/entities/material_item.dart';
 import '../providers/material_provider.dart';
 import '../widgets/home/category_tabs.dart';
 import '../widgets/home/hero_carousel.dart';
@@ -9,6 +8,7 @@ import '../widgets/home/home_bottom_nav_bar.dart';
 import '../widgets/home/home_header.dart';
 import '../widgets/home/material_card.dart';
 import '../widgets/home/section_header.dart';
+import '../widgets/ai/ai_chat_bubble.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,6 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the bottom safe area padding for responsive positioning
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -143,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 24,
                           crossAxisSpacing: 16,
-                          childAspectRatio: 0.7,
+                          childAspectRatio: 0.74,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
@@ -165,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // 6. Floating Action Button (Optional - kept for specific requirement)
           Positioned(
-            bottom: 100,
+            bottom: 100 + bottomPadding,
             right: 24,
             child: FloatingActionButton(
               onPressed: () => Navigator.pushNamed(context, '/addMaterial'),
@@ -177,11 +180,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+          // AI Chat Bubble (Movable)
+          AiChatBubble(
+            onTap: () => Navigator.pushNamed(context, '/aiChat'),
+          ),
+
           // 7. Bottom Navigation Bar (Floating Glass)
           HomeBottomNavBar(
+            activeIndex: 0,
+            onHomePressed: () {},
+            onFavoritesPressed: () {
+              Navigator.pushReplacementNamed(context, '/favorites');
+            },
+            onChatPressed: () {
+              Navigator.pushReplacementNamed(context, '/chatTab');
+            },
             onAddPressed: () {
               // Signature action - maybe same as FAB or different
-               Navigator.pushNamed(context, '/addMaterial');
+              Navigator.pushNamed(context, '/addMaterial');
             },
             onImpactPressed: () {
               Navigator.pushNamed(context, '/impact');
